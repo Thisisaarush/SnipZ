@@ -6,12 +6,11 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "SnipZ: Snip, Share, Streamline",
-  description:
-    "SnipZ is a platform for developers to share, search, and organize code snippets",
+  description: "SnipZ is a platform for developers to share, search, and organize code snippets"
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {
