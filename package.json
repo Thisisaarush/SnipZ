@@ -11,11 +11,9 @@
     "check": "pnpm format && pnpm lint"
   },
   "dependencies": {
-    "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
-    "next": "^15.0.0-rc.0",
-    "react": "^19.0.0-rc-99da76f23a-20240606",
-    "react-dom": "^19.0.0-rc-99da76f23a-20240606"
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
