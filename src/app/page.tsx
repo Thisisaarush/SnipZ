@@ -1,7 +1,8 @@
 export default function Home() {
   return (
     <main>
-      <div>SnipZ</div>
+      <h1>SnipZ: Snip, Share, Streamline</h1>
+      <button>Explore</button>
     </main>
   )
 }
