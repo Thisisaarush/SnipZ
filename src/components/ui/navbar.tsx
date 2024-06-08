@@ -9,10 +9,10 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`flex justify-center ${pathname === "/" ? "absolute left-1/2 top-6 w-[95%] max-w-2xl -translate-x-1/2 md:w-full" : ""}`}
+      className={`flex justify-center ${pathname === "/" ? "absolute left-1/2 top-6 w-[95%] max-w-2xl -translate-x-1/2 md:w-full" : "border-b"}`}
     >
-      <div className="flex w-full max-w-4xl items-center justify-between px-10 py-6">
-        <Link href={"/"} className="p-2 font-bold lg:text-lg">
+      <div className="flex w-full max-w-4xl items-center justify-between px-10 py-4">
+        <Link href="/" className="p-2 font-bold lg:text-lg">
           SnipZ
         </Link>
 
