@@ -5,8 +5,7 @@ SnipZ is a platform for developers to share, search, and organize code snippets.
 ## to-do mvp
 
 - [x] Landing Page for new Users / non-logged in users
-- [ ] User authentication (github)
-- [ ] User profile page
+- [x] User authentication (github)
 - [ ] Fetch and Categorize GitHub Gists (SnipZ listing page)
 - [ ] SnipZ detail page
 - [ ] Search functionality (search by tags, language, etc.)
@@ -14,6 +13,7 @@ SnipZ is a platform for developers to share, search, and organize code snippets.
 
 ## to-do post-mvp
 
+- [ ] User profile page
 - [ ] Custom SnipZ creation and sharing
 - [ ] Favorite, Like, and Comment functionality
 - [ ] Enhanced search functionality
