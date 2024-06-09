@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { SignInButton, SignedOut } from "@clerk/nextjs"
+import { ClerkLoading, SignInButton, SignedOut } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Line } from "@/components/ui/line"
 import Image from "next/image"
@@ -25,6 +25,14 @@ export default function Home() {
           </Link>
 
           <SignedOut>
+            <ClerkLoading>
+              <Button
+                variant={"outline"}
+                className="flex h-10 w-32 items-center justify-center gap-2 font-light md:h-16 md:w-52 md:text-xl"
+              >
+                Get Started
+              </Button>
+            </ClerkLoading>
             <SignInButton>
               <Button
                 variant={"outline"}

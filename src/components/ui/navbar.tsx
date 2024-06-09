@@ -1,8 +1,9 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
+import { Avatar, AvatarFallback } from "./avatar"
 
 export const NavBar = () => {
   const pathname = usePathname()
@@ -22,11 +23,19 @@ export const NavBar = () => {
           </Link>
 
           <SignedOut>
+            <ClerkLoading>
+              <button className="p-2">Sign in</button>
+            </ClerkLoading>
             <SignInButton>
               <button className="p-2">Sign in</button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
+            <ClerkLoading>
+              <Avatar className="m-2 size-[25px]">
+                <AvatarFallback></AvatarFallback>
+              </Avatar>
+            </ClerkLoading>
             <UserButton appearance={{ elements: { userButtonAvatarBox: "size-[25px] m-2" } }} />
           </SignedIn>
 
