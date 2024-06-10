@@ -5,14 +5,14 @@ import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
 const Snips = () => {
-  const { status, data, error } = useQuery({
-    queryKey: ["allPaginatedPublicGists"],
-    queryFn: () => getPaginatedPublicGists(1, 10)
-  })
+  // const { status, data, error } = useQuery({
+  //   queryKey: ["allPaginatedPublicGists"],
+  //   queryFn: () => getPaginatedPublicGists(1, 10)
+  // })
 
-  console.log({ status, data, error })
+  // console.log({ status, data, error })
 
-  if (status === "pending") return <div>Loading...</div>
+  // if (status === "pending") return <div>Loading...</div>
 
   return (
     <div>

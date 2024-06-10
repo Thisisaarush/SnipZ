@@ -1,6 +1,7 @@
 "use client"
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
+import SideNavBar from "@/components/ui/side-navbar"
 
 export default function SnipsLayout({
   children
@@ -11,7 +12,10 @@ export default function SnipsLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div>{children}</div>
+      <div className="flex">
+        <SideNavBar />
+        {children}
+      </div>
     </QueryClientProvider>
   )
 }
