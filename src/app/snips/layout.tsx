@@ -12,7 +12,7 @@ export default function SnipsLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex">
+      <div className="flex justify-center">
         <SideNavBar />
         {children}
       </div>
