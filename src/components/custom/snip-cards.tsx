@@ -1,13 +1,13 @@
 import Image from "next/image"
-import { Card, CardContent, CardFooter, CardHeader } from "./card"
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import Link from "next/link"
-import { Button } from "./button"
+import { Button } from "../ui/button"
 
 interface SnipCardProps {
   snipData: { [key: string]: any }
 }
 
-const SnipCard: React.FC<SnipCardProps> = ({ snipData }) => {
+const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
   return (
     <>
       {snipData?.map((gist: { [key: string]: any }) => {
@@ -58,4 +58,4 @@ const SnipCard: React.FC<SnipCardProps> = ({ snipData }) => {
   )
 }
 
-export default SnipCard
+export default SnipCards

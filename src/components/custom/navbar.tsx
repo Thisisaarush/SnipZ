@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
-import { Avatar, AvatarFallback } from "./avatar"
+import { Avatar, AvatarFallback } from "../ui/avatar"
 
 export const NavBar = () => {
   const pathname = usePathname()

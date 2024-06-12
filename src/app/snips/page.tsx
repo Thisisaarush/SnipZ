@@ -1,16 +1,21 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { getAllPublicGists, getPaginatedPublicGists, getRateLimit } from "@/lib/utils"
-import SnipCard from "@/components/ui/snip-card"
+
+import SnipCards from "@/components/custom/snip-cards"
+import SnipsPagination from "@/components/custom/snips-pagination"
 
 const Snips = () => {
+  const searchParam = useSearchParams()
+  const pageNumber = Number(searchParam.get("page"))
+  const currentPage = pageNumber < 1 ? 1 : pageNumber > 300 ? 300 : pageNumber || 1
+  const totalPages = new Array(300).fill(0).map((_, i) => i + 1)
+
   const { status, data, error } = useQuery({
-    queryKey: ["allPaginatedPublicGists"],
-    queryFn: () => getPaginatedPublicGists(1, 30)
+    queryKey: ["allPaginatedPublicGists", currentPage],
+    queryFn: () => getPaginatedPublicGists(currentPage, 10)
   })
 
   console.log({ status, data, error })
@@ -33,11 +38,14 @@ const Snips = () => {
   // }, [filterByLanguage])
 
   if (status === "pending")
-    return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
+    return (
+      <div className="flex h-screen w-full max-w-4xl items-center justify-center">Loading...</div>
+    )
 
   return (
-    <div className="flex w-full max-w-4xl flex-col justify-center gap-10 p-8">
-      <SnipCard snipData={data} />
+    <div className="flex w-full max-w-4xl flex-col gap-10 p-8">
+      <SnipCards snipData={data} />
+      <SnipsPagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   )
 }

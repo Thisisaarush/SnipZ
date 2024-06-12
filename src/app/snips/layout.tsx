@@ -1,7 +1,7 @@
 "use client"
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import SideNavBar from "@/components/ui/side-navbar"
+import SideNavBar from "@/components/custom/side-navbar"
 
 export default function SnipsLayout({
   children

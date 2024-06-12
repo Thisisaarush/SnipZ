@@ -1,7 +1,6 @@
 import Image from "next/image"
-import { Button } from "./button"
-import { ScrollArea } from "./scroll-area"
-import { Separator } from "./separator"
+import { Button } from "../ui/button"
+import { ScrollArea } from "../ui/scroll-area"
 import { categoriesData } from "@/lib/categories-data"
 
 const SideNavBar = () => {
@@ -34,7 +33,6 @@ const SideNavBar = () => {
                     })}
                   </div>
                 </div>
-                <Separator className="my-4 last-of-type:hidden" />
               </li>
             )
           })}

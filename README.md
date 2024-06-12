@@ -6,7 +6,8 @@ SnipZ is a platform for developers to share, search, and organize code snippets.
 
 - [x] Landing Page for new Users / non-logged in users
 - [x] User authentication (github)
-- [ ] Fetch and Categorize GitHub Gists (SnipZ listing page) - Based on language, stars, etc.
+- [x] Fetch and display a list of Gists (SnipZ listing page)
+- [ ] Filter gists
 - [ ] SnipZ detail page
 - [ ] Search functionality (search by tags, language, etc.)
 - [ ] Responsive Design
