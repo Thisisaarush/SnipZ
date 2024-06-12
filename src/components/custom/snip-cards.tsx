@@ -46,10 +46,12 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
               })}
             </CardContent>
 
-            <CardFooter className="py-2">
-              <Link href={gist.html_url} target="_blank" className="py-2">
-                <Button variant={"secondary"}>View on GitHub</Button>
-              </Link>
+            <CardFooter className="py-4">
+              <Button variant={"secondary"} asChild>
+                <Link href={gist.html_url} target="_blank">
+                  View on GitHub
+                </Link>
+              </Button>
             </CardFooter>
           </Card>
         )

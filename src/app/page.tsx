@@ -18,11 +18,13 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex items-center gap-4 md:gap-8">
-          <Link href="/snips">
-            <Button variant={"default"} className="h-10 w-32 font-light md:h-16 md:w-52 md:text-xl">
-              Explore
-            </Button>
-          </Link>
+          <Button
+            variant={"default"}
+            asChild
+            className="h-10 w-32 font-light md:h-16 md:w-52 md:text-xl"
+          >
+            <Link href="/snips">Explore</Link>
+          </Button>
 
           <SignedOut>
             <ClerkLoading>

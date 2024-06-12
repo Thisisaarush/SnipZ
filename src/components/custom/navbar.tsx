@@ -4,6 +4,8 @@ import Link from "next/link"
 import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback } from "../ui/avatar"
+import { ModeToggle } from "../theme/mode-toggle"
+import { Button } from "../ui/button"
 
 export const NavBar = () => {
   const pathname = usePathname()
@@ -41,15 +43,19 @@ export const NavBar = () => {
 
           <span className="text-gray-400">|</span>
 
-          <Link href="https://github.com/Thisisaarush/SnipZ" className="p-2">
-            <Image
-              className="cursor-pointer dark:invert"
-              src={"/github.svg"}
-              alt="github link"
-              width={25}
-              height={25}
-            />
-          </Link>
+          <Button variant="outline" asChild size={"icon"}>
+            <Link href="https://github.com/Thisisaarush/SnipZ">
+              <Image
+                className="cursor-pointer dark:invert"
+                src={"/github.svg"}
+                alt="github link"
+                width={20}
+                height={20}
+              />
+            </Link>
+          </Button>
+
+          <ModeToggle />
         </div>
       </div>
     </nav>
