@@ -6,6 +6,7 @@ import { getAllPublicGists, getPaginatedPublicGists, getRateLimit } from "@/lib/
 
 import SnipCards from "@/components/custom/snip-cards"
 import SnipsPagination from "@/components/custom/snips-pagination"
+import { useCallback, useEffect, useState } from "react"
 
 const Snips = () => {
   const searchParam = useSearchParams()

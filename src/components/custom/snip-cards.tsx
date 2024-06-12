@@ -1,18 +1,35 @@
+"use client"
+
 import Image from "next/image"
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import Link from "next/link"
 import { Button } from "../ui/button"
+import { useState } from "react"
+import CodeBlock from "./code-block"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog"
+import { ScrollArea } from "../ui/scroll-area"
 
 interface SnipCardProps {
   snipData: { [key: string]: any }
 }
 
 const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
+  const [currentFileLanguage, setCurrentFileLanguage] = useState("")
+  const [currentFileUrl, setCurrentFileUrl] = useState("")
+
+  console.log({ currentFileLanguage, currentFileUrl })
+
   return (
     <>
       {snipData?.map((gist: { [key: string]: any }) => {
-        const files = Object.values(gist.files)
-        const file = files[0] as { [Key: string]: any }
         return (
           <Card key={gist.id}>
             <CardHeader>
@@ -35,13 +52,30 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
             <CardContent className="flex flex-col gap-2 bg-gray-100 py-4 dark:bg-gray-900">
               {Object.values(gist.files).map((file: any) => {
                 return (
-                  <Link
-                    href={file?.raw_url}
-                    key={file?.filename}
-                    className="w-fit text-sm text-blue-700 hover:underline dark:text-blue-600"
-                  >
-                    {file.filename}
-                  </Link>
+                  <Dialog key={file?.filename}>
+                    <DialogTrigger asChild>
+                      <p
+                        onClick={() => {
+                          setCurrentFileLanguage(file?.language?.toLowerCase())
+                          setCurrentFileUrl(file?.raw_url)
+                        }}
+                        className="w-fit cursor-pointer text-sm text-blue-700 hover:underline dark:text-blue-600"
+                      >
+                        {file?.filename}
+                      </p>
+                    </DialogTrigger>
+
+                    <DialogContent className="w-max max-w-5xl">
+                      <DialogHeader>
+                        <DialogTitle>{file?.filename}</DialogTitle>
+                        <DialogDescription>{file?.language}</DialogDescription>
+                      </DialogHeader>
+
+                      <ScrollArea className="max-h-[80vh]">
+                        <CodeBlock fileUrl={currentFileUrl} language={currentFileLanguage} />
+                      </ScrollArea>
+                    </DialogContent>
+                  </Dialog>
                 )
               })}
             </CardContent>

@@ -1,0 +1,65 @@
+/* Import the default PrismJS theme */
+import "prismjs/themes/prism.css"
+
+/* Override the default styles */
+.code-highlight {
+  background: #282c34; /* Dark background */
+  color: #9da5b4; /* Light grey text */
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #5c6370; /* Grey comments */
+}
+
+.token.punctuation {
+  color: #abb2bf; /* Light grey punctuation */
+}
+
+.token.operator,
+.token.boolean,
+.token.number {
+  color: #56b6c2; /* Blue operators, booleans, and numbers */
+}
+
+.token.property,
+.token.tag,
+.token.string,
+.token.selector,
+.token.attr-name,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #98c379; /* Green properties, tags, strings, selectors, attribute names, entities, URLs, CSS strings, styles, and variables */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #c678dd; /* Purple at-rules, attribute values, and keywords */
+}
+
+.token.function {
+  color: #61afef; /* Blue functions */
+}
+
+.token.regex,
+.token.important {
+  color: #d19a66; /* Orange regular expressions and important */
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
