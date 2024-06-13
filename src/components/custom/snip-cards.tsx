@@ -1,21 +1,20 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { useState } from "react"
 import CodeBlock from "./code-block"
+import { ScrollArea } from "../ui/scroll-area"
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from "@/components/ui/dialog"
-import { ScrollArea } from "../ui/scroll-area"
+} from "../ui/dialog"
 
 interface SnipCardProps {
   snipData: { [key: string]: any }
@@ -25,13 +24,11 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
   const [currentFileLanguage, setCurrentFileLanguage] = useState("")
   const [currentFileUrl, setCurrentFileUrl] = useState("")
 
-  console.log({ currentFileLanguage, currentFileUrl })
-
   return (
     <>
       {snipData?.map((gist: { [key: string]: any }) => {
         return (
-          <Card key={gist.id}>
+          <Card key={gist.id} className="cursor-pointer hover:outline">
             <CardHeader>
               <div className="flex items-center gap-2">
                 <p>by</p>
@@ -54,7 +51,9 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                 return (
                   <Dialog key={file?.filename}>
                     <DialogTrigger asChild>
-                      <p
+                      <Button
+                        variant={"link"}
+                        size={"sm"}
                         onClick={() => {
                           setCurrentFileLanguage(file?.language?.toLowerCase())
                           setCurrentFileUrl(file?.raw_url)
@@ -62,7 +61,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                         className="w-fit cursor-pointer text-sm text-blue-700 hover:underline dark:text-blue-600"
                       >
                         {file?.filename}
-                      </p>
+                      </Button>
                     </DialogTrigger>
 
                     <DialogContent className="w-max max-w-5xl">
