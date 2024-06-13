@@ -2,8 +2,9 @@ import Image from "next/image"
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { categoriesData } from "@/lib/categories-data"
+import { memo } from "react"
 
-const SideNavBar = () => {
+const SideNavBar = memo(function SideNavBar() {
   return (
     <nav className="sticky top-0 max-h-screen min-w-fit border-r">
       <ScrollArea className="h-full">
@@ -40,6 +41,6 @@ const SideNavBar = () => {
       </ScrollArea>
     </nav>
   )
-}
+})
 
 export default SideNavBar

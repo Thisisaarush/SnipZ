@@ -17,7 +17,7 @@ import {
 } from "../ui/dialog"
 
 interface SnipCardProps {
-  snipData: { [key: string]: any }
+  snipData: { [key: string]: any }[]
 }
 
 const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
@@ -28,7 +28,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
     <>
       {snipData?.map((gist: { [key: string]: any }) => {
         return (
-          <Card key={gist.id} className="cursor-pointer hover:outline">
+          <Card key={gist.id}>
             <CardHeader>
               <div className="flex items-center gap-2">
                 <p>by</p>
@@ -46,7 +46,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
               </p>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-2 bg-gray-100 py-4 dark:bg-gray-900">
+            <CardContent className="flex flex-col gap-2 overflow-hidden text-ellipsis bg-gray-100 py-4 dark:bg-gray-900">
               {Object.values(gist.files).map((file: any) => {
                 return (
                   <Dialog key={file?.filename}>
@@ -79,7 +79,10 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
               })}
             </CardContent>
 
-            <CardFooter className="py-4">
+            <CardFooter className="flex gap-4 py-4">
+              <Button variant={"default"} asChild>
+                <Link href={`/snips/${gist?.id}`}>Open</Link>
+              </Button>
               <Button variant={"secondary"} asChild>
                 <Link href={gist.html_url} target="_blank">
                   View on GitHub

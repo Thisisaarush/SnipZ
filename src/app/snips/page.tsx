@@ -1,14 +1,15 @@
 "use client"
 
+import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { getAllPublicGists, getPaginatedPublicGists, getRateLimit } from "@/lib/utils"
 
 import SnipCards from "@/components/custom/snip-cards"
 import SnipsPagination from "@/components/custom/snips-pagination"
-import { useCallback, useEffect, useState } from "react"
+import SideNavBar from "@/components/custom/side-navbar"
 
-const Snips = () => {
+const SnipsListingPage = () => {
   const searchParam = useSearchParams()
   const pageNumber = Number(searchParam.get("page"))
   const currentPage = pageNumber < 1 ? 1 : pageNumber > 300 ? 300 : pageNumber || 1
@@ -39,16 +40,17 @@ const Snips = () => {
   // }, [filterByLanguage])
 
   if (status === "pending")
-    return (
-      <div className="flex h-screen w-full max-w-4xl items-center justify-center">Loading...</div>
-    )
+    return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
 
   return (
-    <div className="flex w-full max-w-4xl flex-col gap-10 p-8">
-      <SnipCards snipData={data} />
-      <SnipsPagination currentPage={currentPage} totalPages={totalPages} />
+    <div className="m-auto flex w-full justify-center gap-10">
+      <SideNavBar />
+      <div className="my-10 flex w-full max-w-2xl flex-col gap-10">
+        <SnipCards snipData={data} />
+        <SnipsPagination currentPage={currentPage} totalPages={totalPages} />
+      </div>
     </div>
   )
 }
 
-export default Snips
+export default SnipsListingPage
