@@ -40,7 +40,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ fileUrl = "", language = "" }) =>
   }, [fileUrl])
 
   return (
-    <pre>
+    <pre className="rounded-md bg-gray-50 p-4 dark:bg-gray-900">
       <code className={`language-${lowerCaseLang} text-wrap`}>{code}</code>
     </pre>
   )

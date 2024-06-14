@@ -64,7 +64,7 @@ const SnipDetailPage: React.FC<SnipDetailPageProps> = ({ params }) => {
             <div key={file.filename} className="flex flex-col gap-2">
               <p className="text-balance font-medium">{file?.filename}</p>
               <p className="text-sm text-gray-500">{file?.language}</p>
-              <ScrollArea className="w-full max-w-4xl rounded-md border bg-gray-50 p-6 dark:bg-gray-900">
+              <ScrollArea className="w-full max-w-4xl rounded-md border">
                 <div className="h-fit max-h-[500px]">
                   <CodeBlock fileUrl={file?.raw_url} language={file?.language} />
                 </div>
