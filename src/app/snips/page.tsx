@@ -42,6 +42,9 @@ const SnipsListingPage = () => {
   if (status === "pending")
     return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
 
+  if (status === "error")
+    return <div className="flex h-screen w-full items-center justify-center">{error?.name}</div>
+
   return (
     <div className="m-auto flex w-full justify-center gap-10">
       <SideNavBar />

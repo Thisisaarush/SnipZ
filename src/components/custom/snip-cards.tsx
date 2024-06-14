@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import CodeBlock from "./code-block"
-import { ScrollArea } from "../ui/scroll-area"
+import { ScrollArea, ScrollBar } from "../ui/scroll-area"
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import {
   Dialog,
@@ -55,7 +55,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                         variant={"link"}
                         size={"sm"}
                         onClick={() => {
-                          setCurrentFileLanguage(file?.language?.toLowerCase())
+                          setCurrentFileLanguage(file?.language)
                           setCurrentFileUrl(file?.raw_url)
                         }}
                         className="w-fit cursor-pointer text-sm text-blue-700 hover:underline dark:text-blue-600"
@@ -72,6 +72,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
 
                       <ScrollArea className="max-h-[80vh]">
                         <CodeBlock fileUrl={currentFileUrl} language={currentFileLanguage} />
+                        <ScrollBar orientation="horizontal" />
                       </ScrollArea>
                     </DialogContent>
                   </Dialog>

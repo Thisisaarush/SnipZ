@@ -11,13 +11,14 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ fileUrl = "", language = "" }) => {
   const [code, setCode] = useState("")
+  const lowerCaseLang = language?.toLowerCase()
 
   // Load the language for syntax highlighting
   useEffect(() => {
-    import(`prismjs/components/prism-${language}`)
+    import(`prismjs/components/prism-${lowerCaseLang}`)
       .then(() => Prism.highlightAll())
-      .catch((err) => console.log(`Failed to load language: ${language}`, err))
-  }, [language, code])
+      .catch((err) => console.log(`Failed to load language: ${lowerCaseLang}`, err))
+  }, [lowerCaseLang, code])
 
   // Fetch the code from the fileUrl
   useEffect(() => {
@@ -40,7 +41,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ fileUrl = "", language = "" }) =>
 
   return (
     <pre>
-      <code className={`language-${language} text-wrap`}>{code}</code>
+      <code className={`language-${lowerCaseLang} text-wrap`}>{code}</code>
     </pre>
   )
 }
