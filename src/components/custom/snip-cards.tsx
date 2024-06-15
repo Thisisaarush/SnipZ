@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "../ui/dialog"
+import { Copy, CopyCheck } from "lucide-react"
 
 interface SnipCardProps {
   snipData: { [key: string]: any }[]
@@ -23,6 +24,21 @@ interface SnipCardProps {
 const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
   const [currentFileLanguage, setCurrentFileLanguage] = useState("")
   const [currentFileUrl, setCurrentFileUrl] = useState("")
+  const [isCopied, setIsCopied] = useState(false)
+
+  const handleCopyToClipboard = async () => {
+    try {
+      const response = await fetch(currentFileUrl)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const codeText = await response.text()
+      navigator?.clipboard?.writeText(codeText)
+      setIsCopied(true)
+    } catch (error) {
+      console.error("Error fetching the code:", error)
+    }
+  }
 
   return (
     <>
@@ -66,7 +82,27 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
 
                     <DialogContent className="w-max max-w-5xl">
                       <DialogHeader>
-                        <DialogTitle>{file?.filename}</DialogTitle>
+                        <div className="flex items-center gap-2">
+                          <DialogTitle>{file?.filename}</DialogTitle>
+                          <Button
+                            variant={"outline"}
+                            size={"sm"}
+                            onClick={handleCopyToClipboard}
+                            className="flex w-fit gap-2"
+                          >
+                            {isCopied ? (
+                              <>
+                                <CopyCheck size={"16px"} />
+                                <p>Copied!</p>
+                              </>
+                            ) : (
+                              <>
+                                <Copy size={"16px"} />
+                                <p>Copy</p>
+                              </>
+                            )}
+                          </Button>
+                        </div>
                         <DialogDescription>{file?.language}</DialogDescription>
                       </DialogHeader>
 
