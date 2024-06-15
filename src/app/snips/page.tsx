@@ -22,23 +22,6 @@ const SnipsListingPage = () => {
 
   console.log({ status, data, error })
 
-  // filter gists based on language
-  // const filterByLanguage = useCallback(
-  //   (language: string) => {
-  //     const filteredData = data?.filter((gist: { [key: string]: any }) => {
-  //       const files = Object.values(gist.files)
-  //       const file = files[0] as { [Key: string]: any }
-  //       return file.language?.toLowerCase() === language?.toLowerCase()
-  //     })
-  //     console.log(filteredData)
-  //   },
-  //   [data]
-  // )
-
-  // useEffect(() => {
-  //   filterByLanguage("python")
-  // }, [filterByLanguage])
-
   if (status === "pending")
     return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
 

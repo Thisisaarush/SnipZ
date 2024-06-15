@@ -3,6 +3,7 @@ import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { categoriesData } from "@/lib/categories-data"
 import { memo } from "react"
+import Link from "next/link"
 
 const SideNavBar = memo(function SideNavBar() {
   return (
@@ -21,15 +22,17 @@ const SideNavBar = memo(function SideNavBar() {
                   <div className="m-4 flex flex-col gap-1">
                     {Object.values(category)[0].map((item, index) => {
                       return (
-                        <div key={index}>
-                          <Button
-                            variant={"ghost"}
-                            className="w-full justify-start gap-2 px-8 text-sm font-normal capitalize"
-                          >
+                        <Button
+                          key={index}
+                          variant={"ghost"}
+                          className="w-full justify-start gap-2 px-8 text-sm font-normal capitalize"
+                          asChild
+                        >
+                          <Link href={`/search?query=${item.name.toLowerCase()}`}>
                             <Image src={item?.icon} alt="technology" width={15} height={15} />
                             {item.name}
-                          </Button>
-                        </div>
+                          </Link>
+                        </Button>
                       )
                     })}
                   </div>
