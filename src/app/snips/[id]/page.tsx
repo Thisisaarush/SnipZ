@@ -1,11 +1,12 @@
 "use client"
 
-import CodeBlock from "@/components/custom/code-block"
+import Image from "next/image"
+import Link from "next/link"
+import { useQuery } from "@tanstack/react-query"
+import { getGistById } from "@/lib/utils"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { getGistById } from "@/lib/utils"
-import { useQuery } from "@tanstack/react-query"
-import Image from "next/image"
+import CodeBlock from "@/components/custom/code-block"
 
 interface SnipDetailPageProps {
   params: { id: string }
@@ -60,19 +61,29 @@ const SnipDetailPage: React.FC<SnipDetailPageProps> = ({ params }) => {
         <Separator />
 
         <div className="flex flex-col gap-10">
-          {Object?.values(data?.files).map((file: any) => (
-            <div key={file.filename} className="flex flex-col gap-2">
-              <p className="text-balance font-medium">{file?.filename}</p>
-              <p className="text-sm text-gray-500">{file?.language}</p>
-              <ScrollArea className="w-full max-w-4xl rounded-md border">
-                <div className="h-fit max-h-[500px]">
-                  <CodeBlock fileUrl={file?.raw_url} language={file?.language} />
-                </div>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            </div>
-          ))}
+          {Object?.values(data?.files)
+            ?.slice(0, 10)
+            ?.map((file: any) => (
+              <div key={file.filename} className="flex flex-col gap-2">
+                <p className="text-balance font-medium">{file?.filename}</p>
+                <p className="text-sm text-gray-500">{file?.language}</p>
+                <ScrollArea className="w-full max-w-4xl rounded-md border">
+                  <div className="h-fit max-h-[500px]">
+                    <CodeBlock fileUrl={file?.raw_url} language={file?.language} />
+                  </div>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </div>
+            ))}
         </div>
+
+        {Object?.values(data?.files)?.length > 10 && (
+          <div className="flex justify-center">
+            <Link href={data?.html_url} className="text-blue-600 hover:underline">
+              View more files
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
