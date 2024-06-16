@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { Suspense, useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { getAllPublicGists, getPaginatedPublicGists, getRateLimit } from "@/lib/utils"
@@ -10,6 +10,13 @@ import SnipsPagination from "@/components/custom/snips-pagination"
 import SideNavBar from "@/components/custom/side-navbar"
 
 const SnipsListingPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SnipsListingContent />
+    </Suspense>
+  )
+}
+const SnipsListingContent = () => {
   const searchParam = useSearchParams()
   const pageNumber = Number(searchParam.get("page"))
   const currentPage = pageNumber < 1 ? 1 : pageNumber > 300 ? 300 : pageNumber || 1

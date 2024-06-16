@@ -1,12 +1,20 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { Suspense, useCallback, useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getPaginatedPublicGists } from "@/lib/utils"
 import { useSearchParams } from "next/navigation"
 import SnipCards from "@/components/custom/snip-cards"
 
 const SearchPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  )
+}
+
+const SearchPageContent = () => {
   const searchQuery = useSearchParams().get("query") || ""
   const [filteredData, setFilteredData] = useState<{ [key: string]: any }[]>([])
 
