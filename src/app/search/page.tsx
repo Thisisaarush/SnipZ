@@ -8,9 +8,11 @@ import SnipCards from "@/components/custom/snip-cards"
 
 const SearchPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SearchPageContent />
-    </Suspense>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchPageContent />
+      </Suspense>
+    </>
   )
 }
 
@@ -50,6 +52,11 @@ const SearchPageContent = () => {
   return (
     <div className="my-10 flex w-full flex-col gap-8">
       <h1 className="text-2xl font-bold md:text-4xl">Search and Filter</h1>
+      <div className="flex items-center gap-4">
+        <h2>Results for: {searchQuery}</h2>
+        <h3>Total results: {filteredData?.length}</h3>
+      </div>
+
       <SnipCards snipData={filteredData} />
     </div>
   )

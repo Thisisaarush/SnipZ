@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const SideNavBar = memo(function SideNavBar() {
   return (
-    <nav className="sticky top-0 max-h-screen min-w-fit border-r">
+    <nav className="sticky top-0 max-h-screen min-h-screen min-w-fit border-r">
       <ScrollArea className="h-full">
         <h1 className="mx-8 my-6 text-lg font-medium">Filter by</h1>
 

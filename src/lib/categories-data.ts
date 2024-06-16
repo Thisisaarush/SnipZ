@@ -78,65 +78,65 @@ export const categoriesData: Array<{ [key: string]: { name: string; icon: string
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg"
       }
     ]
-  },
-  {
-    frameworks: [
-      {
-        name: "React",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
-      },
-      {
-        name: "Vue",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
-      },
-      {
-        name: "Angular",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg"
-      },
-      {
-        name: "Svelte",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg"
-      }
-    ]
-  },
-  {
-    databases: [
-      {
-        name: "PostgreSQL",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
-      },
-      {
-        name: "MongoDB",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
-      },
-      {
-        name: "MySQL",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-      },
-      {
-        name: "SQLite",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg"
-      }
-    ]
-  },
-  {
-    tools: [
-      {
-        name: "Git",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-      },
-      {
-        name: "Docker",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
-      },
-      {
-        name: "Kubernetes",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg"
-      },
-      {
-        name: "Jenkins",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg"
-      }
-    ]
   }
+  // {
+  //   frameworks: [
+  //     {
+  //       name: "React",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+  //     },
+  //     {
+  //       name: "Vue",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
+  //     },
+  //     {
+  //       name: "Angular",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg"
+  //     },
+  //     {
+  //       name: "Svelte",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg"
+  //     }
+  //   ]
+  // },
+  // {
+  //   databases: [
+  //     {
+  //       name: "PostgreSQL",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+  //     },
+  //     {
+  //       name: "MongoDB",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+  //     },
+  //     {
+  //       name: "MySQL",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+  //     },
+  //     {
+  //       name: "SQLite",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg"
+  //     }
+  //   ]
+  // },
+  // {
+  //   tools: [
+  //     {
+  //       name: "Git",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+  //     },
+  //     {
+  //       name: "Docker",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+  //     },
+  //     {
+  //       name: "Kubernetes",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg"
+  //     },
+  //     {
+  //       name: "Jenkins",
+  //       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg"
+  //     }
+  //   ]
+  // }
 ]
