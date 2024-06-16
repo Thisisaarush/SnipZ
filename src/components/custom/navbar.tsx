@@ -3,13 +3,13 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
+import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { Avatar, AvatarFallback } from "../ui/avatar"
 import { ModeToggle } from "../theme/mode-toggle"
 import { Button } from "../ui/button"
-import { Cross, Search, X } from "lucide-react"
 import { Input } from "../ui/input"
+import { Search, X } from "lucide-react"
 
 export const NavBar = () => {
   const pathname = usePathname()

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
@@ -7,6 +8,8 @@ import { getGistById } from "@/lib/utils"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import CodeBlock from "@/components/custom/code-block"
+import { Button } from "@/components/ui/button"
+import { Copy, CopyCheck } from "lucide-react"
 
 interface SnipDetailPageProps {
   params: { id: string }
@@ -30,6 +33,22 @@ const SnipDetailPage: React.FC<SnipDetailPageProps> = ({ params }) => {
     hour12: true,
     timeZoneName: "short"
   })
+
+  const [isCopied, setIsCopied] = useState(false)
+
+  const handleCopyToClipboard = async (currentFileUrl: string) => {
+    try {
+      const response = await fetch(currentFileUrl)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const codeText = await response.text()
+      navigator?.clipboard?.writeText(codeText)
+      setIsCopied(true)
+    } catch (error) {
+      console.error("Error fetching the code:", error)
+    }
+  }
 
   if (status === "pending")
     return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
@@ -65,7 +84,27 @@ const SnipDetailPage: React.FC<SnipDetailPageProps> = ({ params }) => {
             ?.slice(0, 10)
             ?.map((file: any) => (
               <div key={file.filename} className="flex flex-col gap-2">
-                <p className="text-balance font-medium">{file?.filename}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-balance font-medium">{file?.filename}</p>
+                  <Button
+                    variant={"outline"}
+                    size={"sm"}
+                    onClick={() => handleCopyToClipboard(file?.raw_url)}
+                    className="flex w-fit gap-2"
+                  >
+                    {isCopied ? (
+                      <>
+                        <CopyCheck size={"16px"} />
+                        <p>Copied!</p>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={"16px"} />
+                        <p>Copy</p>
+                      </>
+                    )}
+                  </Button>
+                </div>
                 <p className="text-sm text-gray-500">{file?.language}</p>
                 <ScrollArea className="w-full max-w-4xl rounded-md border">
                   <div className="h-fit max-h-[500px]">
