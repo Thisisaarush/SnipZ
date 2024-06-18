@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import Prism from "prismjs"
 import "@/styles/prismjs-theme.css"
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+import "prismjs/plugins/line-numbers/prism-line-numbers.js"
 
 interface CodeBlockProps {
   fileUrl: string
@@ -40,7 +42,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ fileUrl = "", language = "" }) =>
   }, [fileUrl])
 
   return (
-    <pre className="rounded-md bg-gray-50 p-4 dark:bg-gray-900">
+    <pre className="line-numbers rounded-md bg-gray-50 p-4 dark:bg-gray-900">
       <code className={`language-${lowerCaseLang} text-wrap`}>{code}</code>
     </pre>
   )
