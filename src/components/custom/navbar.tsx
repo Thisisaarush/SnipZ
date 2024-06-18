@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar"
 import { ModeToggle } from "../theme/mode-toggle"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { Search, X } from "lucide-react"
+import { Plus, Search, X } from "lucide-react"
 
 export const NavBar = () => {
   const pathname = usePathname()
@@ -52,6 +52,15 @@ export const NavBar = () => {
             </>
           )}
 
+          {!isSearchOpen && (
+            <Button variant="default" size={"sm"} asChild>
+              <Link href="/snips/create" className="flex gap-1">
+                <Plus className="h-[16px] w-[16px]" />
+                <p>Create</p>
+              </Link>
+            </Button>
+          )}
+
           {!isSearchOpen ? (
             <Button variant="outline" size={"icon"} onClick={() => setIsOpenSearch(true)}>
               <Search className="h-[20px] w-[20px]" />
@@ -69,6 +78,7 @@ export const NavBar = () => {
               </form>
             </>
           )}
+
           {!isSearchOpen && (
             <>
               <Button variant="outline" asChild size={"icon"}>

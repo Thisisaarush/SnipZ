@@ -80,7 +80,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                       </Button>
                     </DialogTrigger>
 
-                    <DialogContent className="w-max max-w-5xl">
+                    <DialogContent className="w-max max-w-4xl">
                       <DialogHeader>
                         <div className="flex items-center gap-2">
                           <DialogTitle>{file?.filename}</DialogTitle>
