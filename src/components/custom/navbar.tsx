@@ -39,26 +39,25 @@ export const NavBar = () => {
                   <button className="p-2">Sign in</button>
                 </SignInButton>
               </SignedOut>
+
               <SignedIn>
                 <ClerkLoading>
                   <Avatar className="m-2 size-[25px]">
-                    <AvatarFallback></AvatarFallback>
+                    <AvatarFallback />
                   </Avatar>
                 </ClerkLoading>
                 <UserButton appearance={{ elements: { userButtonAvatarBox: "size-[25px] m-2" } }} />
               </SignedIn>
 
               <span className="text-gray-400">|</span>
-            </>
-          )}
 
-          {!isSearchOpen && (
-            <Button variant="default" size={"sm"} asChild>
-              <Link href="/snips/create" className="flex gap-1">
-                <Plus className="h-[16px] w-[16px]" />
-                <p>Create</p>
-              </Link>
-            </Button>
+              <Button variant="default" size={"sm"} asChild>
+                <Link href="/snips/create" className="flex gap-1">
+                  <Plus className="h-[16px] w-[16px]" />
+                  <p>Create</p>
+                </Link>
+              </Button>
+            </>
           )}
 
           {!isSearchOpen ? (

@@ -3,7 +3,6 @@ import Link from "next/link"
 import { ClerkLoading, SignInButton, SignedOut } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Line } from "@/components/custom/line"
-import Image from "next/image"
 
 export default function Home() {
   return (
