@@ -27,8 +27,6 @@ const SnipsListingContent = () => {
     queryFn: () => getPaginatedPublicGists(currentPage, 10)
   })
 
-  console.log({ status, data, error })
-
   if (status === "pending")
     return <div className="flex h-screen w-full items-center justify-center">Loading...</div>
 

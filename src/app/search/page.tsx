@@ -25,8 +25,6 @@ const SearchPageContent = () => {
     queryFn: () => getPaginatedPublicGists(1, 100)
   })
 
-  console.log({ status, data, error })
-
   useEffect(() => {
     // filter gists based on search query
     const filteredData = data?.filter((gist: { [key: string]: any }) => {
