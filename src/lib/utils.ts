@@ -1,11 +1,13 @@
 import axios from "axios"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { db } from "./db"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// GitHub Gists API Helper Functions
 export const getAuthorizedGists = async () => {
   try {
     const response = await axios.get("https://api.github.com/gists", {

@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "check": "pnpm format && pnpm lint"
+    "check": "pnpm format && pnpm lint",
+    "studio": "npx prisma studio",
+    "db-push": "npx prisma db push",
+    "db-pull": "npx prisma db pull",
+    "db-migrate": "npx prisma migrate dev --name $MIGRATION_NAME$"
+
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.4",

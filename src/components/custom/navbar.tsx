@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs"
 import { Avatar, AvatarFallback } from "../ui/avatar"
 import { ModeToggle } from "../theme/mode-toggle"
 import { Button } from "../ui/button"
@@ -14,6 +14,37 @@ import { Plus, Search, X } from "lucide-react"
 export const NavBar = () => {
   const pathname = usePathname()
   const [isSearchOpen, setIsOpenSearch] = useState(false)
+  const { user, isLoaded, isSignedIn } = useUser()
+
+  const id = user?.id ?? ""
+  const name = user?.fullName ?? ""
+  const email = user?.primaryEmailAddress?.emailAddress ?? ""
+  const createdAt = user?.createdAt
+  const imageUrl = user?.imageUrl
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/createUser", {
+          method: "POST",
+          body: JSON.stringify({ id, name, email, createdAt }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+      } catch (error) {
+        console.error("An error occurred while fetching the user:", error)
+      }
+    }
+
+    if (isSignedIn && isLoaded) {
+      fetchUser()
+    }
+  }, [isSignedIn, isLoaded, id, name, email, createdAt])
 
   return (
     <nav
@@ -50,13 +81,14 @@ export const NavBar = () => {
               </SignedIn>
 
               <span className="text-gray-400">|</span>
-
-              <Button variant="default" size={"sm"} asChild>
-                <Link href="/snips/create" className="flex gap-1">
-                  <Plus className="h-[16px] w-[16px]" />
-                  <p>Create</p>
-                </Link>
-              </Button>
+              {isSignedIn && isLoaded && (
+                <Button variant="default" size={"sm"} asChild>
+                  <Link href="/snips/create" className="flex gap-1">
+                    <Plus className="h-[16px] w-[16px]" />
+                    <p>Create</p>
+                  </Link>
+                </Button>
+              )}
             </>
           )}
 
