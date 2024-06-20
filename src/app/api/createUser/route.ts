@@ -6,7 +6,8 @@ export async function POST(req: Request, res: Response) {
 
     const userExits = await db.user.findUnique({
       where: {
-        id: id
+        id,
+        email
       }
     })
 

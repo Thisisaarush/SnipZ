@@ -44,7 +44,8 @@ export const NavBar = () => {
     if (isSignedIn && isLoaded) {
       fetchUser()
     }
-  }, [isSignedIn, isLoaded, id, name, email, createdAt])
+    
+  }, [createdAt, email, id, isLoaded, isSignedIn, name])
 
   return (
     <nav
