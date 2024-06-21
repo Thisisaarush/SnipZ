@@ -14,7 +14,7 @@ SnipZ is a platform for developers to share, search, and organize code snippets.
 
 ## to-do post-mvp
 
-- [ ] Custom SnipZ creation
+- [x] Custom SnipZ creation
 - [ ] User profile page
 - [ ] SnipZ Sharing
 - [ ] Enhanced search functionality

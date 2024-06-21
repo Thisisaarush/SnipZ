@@ -12,4 +12,16 @@ model User {
   createdAt DateTime @default(now())
   email     String   @unique
   name      String?
+  snips     Snip[]
+}
+
+model Snip {
+  id          Int   @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String
+  files       String[]
+  email       String  @unique
+
+  user User @relation(fields: [email], references: [email])
 }

@@ -19,7 +19,7 @@ import {
 
 const fileSchema = z.object({
   name: z.string(),
-  size: z.number(),
+  size: z.number().max(100 * 1024),
   type: z.string(),
   lastModified: z.number()
 })
@@ -81,7 +81,7 @@ const CreateSnipPage = () => {
                     }}
                   />
                 </FormControl>
-                <FormDescription>Upload code files for the snip.</FormDescription>
+                <FormDescription>Max 5 files : &lt;500kb each</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
