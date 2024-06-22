@@ -46,9 +46,9 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`flex justify-center ${pathname === "/" ? "absolute left-1/2 top-6 w-[95%] max-w-2xl -translate-x-1/2 md:w-full" : "border-b"}`}
+      className={`flex justify-center ${pathname === "/" ? "absolute left-1/2 top-6 w-[95%] max-w-3xl -translate-x-1/2 md:w-full" : "border-b"}`}
     >
-      <div className="flex w-full max-w-4xl items-center justify-between px-10 py-4">
+      <div className="flex w-full max-w-5xl items-center justify-between px-10 py-4">
         <Link href="/" className={`p-2 font-bold lg:text-lg`}>
           SnipZ
         </Link>
@@ -56,9 +56,14 @@ export const NavBar = () => {
         <div className="flex items-center justify-center gap-2 text-sm">
           {!isSearchOpen && (
             <>
-              <Link href="/snips" className="p-2">
-                All Snippets
-              </Link>
+              <Button variant="link" size={"sm"} asChild>
+                <Link href="/snips">All Snippets</Link>
+              </Button>
+              {isSignedIn && isLoaded && (
+                <Button variant="link" size={"sm"} asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+              )}
 
               <SignedOut>
                 <ClerkLoading>
@@ -79,14 +84,6 @@ export const NavBar = () => {
               </SignedIn>
 
               <span className="text-gray-400">|</span>
-              {isSignedIn && isLoaded && (
-                <Button variant="default" size={"sm"} asChild>
-                  <Link href="/snips/create" className="flex gap-1">
-                    <Plus className="h-[16px] w-[16px]" />
-                    <p>Create</p>
-                  </Link>
-                </Button>
-              )}
             </>
           )}
 
@@ -123,6 +120,15 @@ export const NavBar = () => {
               </Button>
 
               <ModeToggle />
+
+              {isSignedIn && isLoaded && (
+                <Button variant="default" size={"sm"} asChild>
+                  <Link href="/snips/create" className="flex gap-1">
+                    <Plus className="h-[16px] w-[16px]" />
+                    <p>Create</p>
+                  </Link>
+                </Button>
+              )}
             </>
           )}
         </div>
