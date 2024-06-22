@@ -1,25 +1,43 @@
 import { db } from "@/lib/db"
 
+interface SnipInfo {
+  description: string
+  snipUrls: string[]
+  createdAt: string
+  email: string
+}
+
 export async function POST(req: Request, res: Response) {
   try {
-    const { id, description, files, createdAt, updatedAt, email, user } = await req.json()
+    const { description, snipUrls, createdAt, email }: SnipInfo = await req.json()
 
-    if (!description || !files) {
-      throw new Error("Description and files are required")
+    const user = await db.user.findUnique({
+      where: {
+        email
+      }
+    })
+
+    const userId = user?.id
+
+    if (!userId) {
+      throw new Error("User not found")
     }
 
     await db.snip.create({
       data: {
-        id,
         description,
         createdAt,
-        email,
-        files,
-        user,
-        updatedAt
+        snipUrls,
+        userId
       }
     })
+
+    return Response.json({
+      message: "Snip created successfully",
+      description,
+      createdAt
+    })
   } catch (error) {
-    return Response.json({ error: error }, { status: 400 })
+    return Response.json({ message: "An error occurred while creating snip", error })
   }
 }

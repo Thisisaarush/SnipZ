@@ -16,18 +16,16 @@ export const NavBar = () => {
   const [isSearchOpen, setIsOpenSearch] = useState(false)
   const { user, isLoaded, isSignedIn } = useUser()
 
-  const id = user?.id ?? ""
   const name = user?.fullName ?? ""
   const email = user?.primaryEmailAddress?.emailAddress ?? ""
   const createdAt = user?.createdAt
-  const imageUrl = user?.imageUrl
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch("/api/createUser", {
           method: "POST",
-          body: JSON.stringify({ id, name, email, createdAt }),
+          body: JSON.stringify({ name, email, createdAt }),
           headers: {
             "Content-Type": "application/json"
           }
@@ -37,15 +35,14 @@ export const NavBar = () => {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
       } catch (error) {
-        console.error("An error occurred while fetching the user:", error)
+        console.error("An error occurred while creating the user:", error)
       }
     }
 
     if (isSignedIn && isLoaded) {
       fetchUser()
     }
-    
-  }, [createdAt, email, id, isLoaded, isSignedIn, name])
+  }, [createdAt, email, isLoaded, isSignedIn, name])
 
   return (
     <nav

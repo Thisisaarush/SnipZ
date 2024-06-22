@@ -16,6 +16,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
+import { useUser } from "@clerk/nextjs"
 
 const fileSchema = z.object({
   name: z.string(),
@@ -31,13 +32,36 @@ const snipFormSchema = z.object({
 
 const CreateSnipPage = () => {
   const [fileNames, setFileNames] = useState<string[]>([])
+  const { user } = useUser()
+  const email = user?.primaryEmailAddress?.emailAddress
 
   const form = useForm<z.infer<typeof snipFormSchema>>({
     resolver: zodResolver(snipFormSchema)
   })
 
-  const onSubmit = (data: z.infer<typeof snipFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof snipFormSchema>) => {
     console.log("Form data:", data)
+
+    try {
+      const res = await fetch("/api/createSnip", {
+        method: "POST",
+        body: JSON.stringify({
+          description: data?.description,
+          snipUrls: [],
+          createdAt: new Date().toISOString(),
+          email: email
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`)
+      }
+    } catch (error) {
+      console.error("An error occurred while creating snip:", error)
+    }
   }
 
   return (

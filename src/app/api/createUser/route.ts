@@ -1,12 +1,17 @@
 import { db } from "@/lib/db"
 
+interface UserInfo {
+  name: string
+  email: string
+  createdAt: string
+}
+
 export async function POST(req: Request, res: Response) {
   try {
-    const { id, createdAt, email, name } = await req.json()
+    const { createdAt, email, name }: UserInfo = await req.json()
 
     const userExits = await db.user.findUnique({
       where: {
-        id,
         email
       }
     })
@@ -17,7 +22,6 @@ export async function POST(req: Request, res: Response) {
 
     await db.user.create({
       data: {
-        id,
         createdAt,
         email,
         name
@@ -26,7 +30,7 @@ export async function POST(req: Request, res: Response) {
 
     return Response.json({
       message: "User created successfully",
-      user: { id, name, email, createdAt }
+      user: { name, email, createdAt }
     })
   } catch (error) {
     return Response.json({ message: "Something went wrong creating/finding user", error })
