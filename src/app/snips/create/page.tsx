@@ -22,7 +22,8 @@ import CloudinaryWidget from "@/components/custom/cloudinary-widget"
 const snipFormSchema = z.object({
   description: z.string().min(5).max(200)
 })
-
+//! BAD IMPLEMENTATION of File Upload
+// todo: stop cloudinary to auto upload files (widget) this leads to unnecessary uploads when user left the page without submitting the form
 const CreateSnipPage = () => {
   const [fileNames, setFileNames] = useState<string[]>([])
   const [cloudinaryResult, setCloudinaryResult] = useState<{ [key: string]: any }>({})
