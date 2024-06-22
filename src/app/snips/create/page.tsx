@@ -1,7 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { z } from "zod"
+import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -15,7 +17,6 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
-import { useUser } from "@clerk/nextjs"
 import CloudinaryWidget from "@/components/custom/cloudinary-widget"
 
 const snipFormSchema = z.object({
@@ -27,6 +28,7 @@ const CreateSnipPage = () => {
   const [cloudinaryResult, setCloudinaryResult] = useState<{ [key: string]: any }>({})
   const [snipUrls, setSnipUrls] = useState<string[]>([])
 
+  const router = useRouter()
   const { user } = useUser()
   const email = user?.primaryEmailAddress?.emailAddress || ""
 
@@ -69,6 +71,7 @@ const CreateSnipPage = () => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
+        router.push("/dashboard")
       } catch (error) {
         console.error("An error occurred while creating snip:", error)
       }
