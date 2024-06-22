@@ -1,11 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Form,
@@ -17,50 +16,62 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { useUser } from "@clerk/nextjs"
-
-const fileSchema = z.object({
-  name: z.string(),
-  size: z.number().max(100 * 1024),
-  type: z.string(),
-  lastModified: z.number()
-})
+import CloudinaryWidget from "@/components/custom/cloudinary-widget"
 
 const snipFormSchema = z.object({
-  description: z.string().min(5).max(200),
-  files: z.array(fileSchema).max(5).nonempty()
+  description: z.string().min(5).max(200)
 })
 
 const CreateSnipPage = () => {
   const [fileNames, setFileNames] = useState<string[]>([])
+  const [cloudinaryResult, setCloudinaryResult] = useState<{ [key: string]: any }>({})
+  const [snipUrls, setSnipUrls] = useState<string[]>([])
+
   const { user } = useUser()
-  const email = user?.primaryEmailAddress?.emailAddress
+  const email = user?.primaryEmailAddress?.emailAddress || ""
+
+  const fileUploadSuccess = cloudinaryResult?.event === "success"
 
   const form = useForm<z.infer<typeof snipFormSchema>>({
     resolver: zodResolver(snipFormSchema)
   })
 
-  const onSubmit = async (data: z.infer<typeof snipFormSchema>) => {
-    console.log("Form data:", data)
-
-    try {
-      const res = await fetch("/api/createSnip", {
-        method: "POST",
-        body: JSON.stringify({
-          description: data?.description,
-          snipUrls: [],
-          createdAt: new Date().toISOString(),
-          email: email
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`)
+  useEffect(() => {
+    if (cloudinaryResult?.event === "success") {
+      const newFile = {
+        name: cloudinaryResult.info.original_filename,
+        size: cloudinaryResult.info.bytes,
+        type: cloudinaryResult.info.format,
+        lastModified: Date.now()
       }
-    } catch (error) {
-      console.error("An error occurred while creating snip:", error)
+
+      setSnipUrls((prev) => [...prev, cloudinaryResult?.info?.secure_url])
+      setFileNames((prev) => [...prev, cloudinaryResult?.info?.original_filename])
+    }
+  }, [cloudinaryResult, form])
+
+  const onSubmit = async (data: z.infer<typeof snipFormSchema>) => {
+    if (fileUploadSuccess) {
+      try {
+        const res = await fetch("/api/createSnip", {
+          method: "POST",
+          body: JSON.stringify({
+            description: data?.description,
+            snipUrls: snipUrls,
+            createdAt: new Date().toISOString(),
+            email: email
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+      } catch (error) {
+        console.error("An error occurred while creating snip:", error)
+      }
     }
   }
 
@@ -87,33 +98,20 @@ const CreateSnipPage = () => {
               </FormItem>
             )}
           />
-          <FormField
-            name="files"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Code Files</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    multiple
-                    accept=".js, .jsx, .ts, .tsx, .java, .py, .cpp, .c, .h, .html, .css, .scss, .php, .rb, .go, .rs, .swift, .kt, .json, .xml, .yaml, .md, .txt, !image/*, !.pdf"
-                    onChange={(event) => {
-                      const files = event.target.files ? Array.from(event.target.files) : []
-                      setFileNames(files.map((file) => file.name))
-                      field.onChange(files)
-                    }}
-                  />
-                </FormControl>
-                <FormDescription>Max 5 files : &lt;500kb each</FormDescription>
-                <FormMessage />
-              </FormItem>
+          <div className="flex flex-col gap-2">
+            <CloudinaryWidget setCloudinaryResult={setCloudinaryResult} />
+            {fileUploadSuccess ? (
+              <p className="text-sm text-green-500">Following files are uploaded successfully</p>
+            ) : (
+              <p className="text-sm text-red-500">Files are Required</p>
             )}
-          />
-          <ul className="mt-8 flex flex-col gap-2 text-sm">
-            {fileNames?.map((name, index) => <li key={index}>{name}</li>)}
-          </ul>
-          <Button type="submit" className="w-full">
+          </div>
+          {fileNames?.length > 0 && (
+            <ul className="mt-8 flex w-fit flex-col gap-2 rounded-md bg-gray-50 p-2 text-sm dark:bg-gray-900">
+              {fileNames?.map((name, index) => <li key={index}>{name}</li>)}
+            </ul>
+          )}
+          <Button type="submit" disabled={!fileUploadSuccess} className="w-full">
             Create Snip
           </Button>
         </form>
