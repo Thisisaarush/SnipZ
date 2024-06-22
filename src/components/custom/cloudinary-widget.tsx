@@ -22,7 +22,6 @@ const CloudinaryWidget: React.FC<CloudinaryWidgetProps> = ({ setCloudinaryResult
       }}
       signatureEndpoint="/api/sign-cloudinary-params"
       onSuccess={(result, { widget }) => {
-        console.log("Cloudinary result:", result)
         setCloudinaryResult(result)
         widget.close()
       }}
