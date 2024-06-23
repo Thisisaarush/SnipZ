@@ -5,11 +5,12 @@ interface SnipInfo {
   snipUrls: string[]
   createdAt: string
   email: string
+  fileNames: string[]
 }
 
 export async function POST(req: Request, res: Response) {
   try {
-    const { description, snipUrls, createdAt, email }: SnipInfo = await req.json()
+    const { description, snipUrls, fileNames, createdAt, email }: SnipInfo = await req.json()
 
     const user = await db.user.findUnique({
       where: {
@@ -28,7 +29,8 @@ export async function POST(req: Request, res: Response) {
         description,
         createdAt,
         snipUrls,
-        userId
+        userId,
+        fileNames
       }
     })
 

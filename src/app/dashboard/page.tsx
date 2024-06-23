@@ -1,18 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import CodeBlock from "@/components/custom/code-block"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import SnipCards from "@/components/custom/snip-cards"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -23,7 +16,6 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Copy, CopyCheck } from "lucide-react"
-import Link from "next/link"
 
 // function to identify the programming language by the file extension
 function identifyLanguageByExtension(fileName: string): string {
@@ -43,7 +35,41 @@ function identifyLanguageByExtension(fileName: string): string {
     ".scss": "SASS/SCSS",
     ".md": "Markdown",
     ".json": "JSON",
-    ".xml": "XML"
+    ".xml": "XML",
+    ".yml": "YAML",
+    ".yaml": "YAML",
+    ".sh": "Shell",
+    ".bash": "Shell",
+    ".ps1": "PowerShell",
+    ".psm1": "PowerShell",
+    ".sql": "SQL",
+    ".go": "Go",
+    ".rs": "Rust",
+    ".kt": "Kotlin",
+    ".swift": "Swift",
+    ".groovy": "Groovy",
+    ".lua": "Lua",
+    ".r": "R",
+    ".pl": "Perl",
+    ".scala": "Scala",
+    ".tsql": "Transact-SQL",
+    ".vb": "Visual Basic",
+    ".vbs": "Visual Basic",
+    ".vba": "Visual Basic",
+    ".vbscript": "VBScript",
+    ".asm": "Assembly",
+    ".ahk": "AutoHotkey",
+    ".bat": "Batch",
+    ".cmd": "Batch",
+    ".c": "C",
+    ".h": "C",
+    ".hbs": "Handlebars",
+    ".ejs": "EJS",
+    ".elm": "Elm",
+    ".erl": "Erlang",
+    ".f": "Fortran",
+    ".f90": "Fortran",
+    ".f95": "Fortran"
   }
 
   const extension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase()
@@ -92,6 +118,7 @@ const DashboardPage = () => {
         }
 
         const data = await res.json()
+        console.log(data)
         setSnips(data.snips?.reverse())
         setCurrentUser(data.user)
       } catch (error) {
@@ -105,9 +132,10 @@ const DashboardPage = () => {
   }, [email, isLoaded, isSignedIn])
 
   return (
-    <div className="m-auto my-10 flex min-h-screen max-w-5xl flex-col gap-10 p-4">
-      <div className="m-auto flex max-w-4xl flex-col gap-10">
-        {snips?.map((snip: { [key: string]: any }) => {
+    <div className="m-auto my-10 flex max-w-4xl flex-col gap-10 p-4">
+      <h1 className="text-xl font-medium">Your Snips</h1>
+      <div className="flex max-w-4xl flex-col gap-10">
+        {snips?.map((snip: { [key: string]: any }, index: number) => {
           return (
             <Card key={snip.id}>
               <CardHeader>
@@ -122,7 +150,7 @@ const DashboardPage = () => {
               </CardHeader>
 
               <CardContent className="flex flex-col gap-2 overflow-hidden text-ellipsis bg-gray-100 py-4 dark:bg-gray-900">
-                {snip.snipUrls.map((url: string, index: number) => {
+                {snip.snipUrls.map((url: string, idx: number) => {
                   return (
                     <Dialog key={snip.id + url}>
                       <DialogTrigger asChild>
@@ -135,14 +163,16 @@ const DashboardPage = () => {
                           }}
                           className="w-fit cursor-pointer text-sm text-blue-700 hover:underline dark:text-blue-600"
                         >
-                          {url}
+                          {snip.fileNames[idx] + url.slice(url.lastIndexOf("."))}
                         </Button>
                       </DialogTrigger>
 
-                      <DialogContent className="max-w-fit">
+                      <DialogContent className="w-max max-w-4xl">
                         <DialogHeader>
                           <div className="flex items-center gap-2">
-                            <DialogTitle>{url}</DialogTitle>
+                            <DialogTitle>
+                              {snip.fileNames[idx] + url.slice(url.lastIndexOf("."))}
+                            </DialogTitle>
                             <Button
                               variant={"outline"}
                               size={"sm"}

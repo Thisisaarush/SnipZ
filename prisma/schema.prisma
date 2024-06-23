@@ -20,6 +20,7 @@ model Snip {
   createdAt   DateTime @default(now())
   description String
   snipUrls    String[]
+  fileNames   String[]
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
 }
