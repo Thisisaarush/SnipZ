@@ -34,9 +34,10 @@ const SnipsListingContent = () => {
     return <div className="flex h-screen w-full items-center justify-center">{error?.name}</div>
 
   return (
-    <div className="m-auto flex w-full justify-center gap-10">
+    <div className="m-auto flex w-full justify-center gap-10 p-2">
       <SideNavBar />
       <div className="my-10 flex w-full max-w-2xl flex-col gap-10">
+        <h1 className="font-medium text-lg">All Snippets</h1>
         <SnipCards snipData={data} />
         <SnipsPagination currentPage={currentPage} totalPages={totalPages} />
       </div>

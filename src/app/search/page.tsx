@@ -48,7 +48,7 @@ const SearchPageContent = () => {
     return <div className="flex h-screen w-full items-center justify-center">No results found</div>
 
   return (
-    <div className="my-10 flex w-full flex-col gap-8">
+    <div className="my-10 flex w-full flex-col gap-8 p-2">
       <h1 className="text-2xl font-bold md:text-4xl">Search and Filter</h1>
       <div className="flex items-center gap-4">
         <h2>Results for: {searchQuery}</h2>

@@ -80,7 +80,7 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                       </Button>
                     </DialogTrigger>
 
-                    <DialogContent className="w-max max-w-4xl">
+                    <DialogContent className="w-[90%] max-w-4xl rounded-md">
                       <DialogHeader>
                         <div className="flex items-center gap-2">
                           <DialogTitle>{file?.filename}</DialogTitle>
@@ -103,7 +103,9 @@ const SnipCards: React.FC<SnipCardProps> = ({ snipData }) => {
                             )}
                           </Button>
                         </div>
-                        <DialogDescription>{file?.language}</DialogDescription>
+                        <DialogDescription className="text-start">
+                          {file?.language}
+                        </DialogDescription>
                       </DialogHeader>
 
                       <ScrollArea className="max-h-[80vh]">

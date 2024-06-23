@@ -10,12 +10,14 @@ import { ModeToggle } from "../theme/mode-toggle"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Menu, Plus, Search, X } from "lucide-react"
+import { useIsMobile } from "@/lib/custom-hooks/useIsMobile"
 
 export const NavBar = () => {
   const pathname = usePathname()
   const [isSearchOpen, setIsOpenSearch] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { user, isLoaded, isSignedIn } = useUser()
+  const { isMobile } = useIsMobile()
 
   const name = user?.fullName ?? ""
   const email = user?.primaryEmailAddress?.emailAddress ?? ""
@@ -49,17 +51,6 @@ export const NavBar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener("resize", handleResize)
-
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden"
@@ -67,10 +58,6 @@ export const NavBar = () => {
       document.body.style.overflow = "auto"
     }
   }, [isMobileMenuOpen])
-
-  const IsMobile = () => {
-    return windowWidth <= 768
-  }
 
   return (
     <nav
@@ -80,7 +67,7 @@ export const NavBar = () => {
         <Link href="/" className={`p-2 font-bold lg:text-lg`}>
           SnipZ
         </Link>
-        {!IsMobile() && (
+        {!isMobile && (
           <div className="flex items-center justify-center gap-2 text-sm">
             {!isSearchOpen && (
               <>
@@ -167,13 +154,13 @@ export const NavBar = () => {
         {
           // Mobile Menu
         }
-        {IsMobile() && !isMobileMenuOpen && (
+        {isMobile && !isMobileMenuOpen && (
           <Button variant="outline" size={"icon"} onClick={toggleMobileMenu}>
             <Menu className="h-[20px] w-[20px]" />
           </Button>
         )}
 
-        {IsMobile() && isMobileMenuOpen && (
+        {isMobile && isMobileMenuOpen && (
           <div className="absolute right-0 top-0 z-50 flex min-h-screen w-[80%] flex-col items-start gap-8 bg-gray-50 p-4 shadow-md dark:bg-gray-900">
             <Button
               variant="destructive"
@@ -240,7 +227,7 @@ export const NavBar = () => {
                 </Button>
               )}
 
-              <div className="flex justify-between gap-4">
+              <div className="flex w-full justify-evenly gap-4">
                 <SignedOut>
                   <ClerkLoading>
                     <button className="w-full p-2">Sign in</button>
