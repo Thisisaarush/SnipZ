@@ -204,11 +204,11 @@ const DashboardPage = () => {
                   )
                 })}
               </CardContent>
-              <CardFooter className="mt-4">
+              {/* <CardFooter className="mt-4">
                 <Button variant={"default"} asChild>
                   <Link href={`/snips/${snip?.id}`}>Open</Link>
                 </Button>
-              </CardFooter>
+              </CardFooter> */}
             </Card>
           )
         })}
