@@ -7,8 +7,8 @@ import { Line } from "@/components/custom/line"
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <Line />
-      <Line type="vertical" className="absolute left-10 md:left-20 lg:left-32" />
+      <Line className="-z-10" />
+      <Line type="vertical" className="absolute left-10 -z-10 md:left-20 lg:left-32" />
 
       <div className="my-32 flex flex-col items-center gap-6">
         <h1 className="text-5xl font-bold md:text-7xl lg:text-8xl">SnipZ Code</h1>
@@ -46,8 +46,8 @@ export default function Home() {
         </div>
       </div>
 
-      <Line type="vertical" className="absolute right-10 md:right-20 lg:right-32" />
-      <Line />
+      <Line type="vertical" className="absolute right-10 -z-10 md:right-20 lg:right-32" />
+      <Line className="-z-10" />
     </main>
   )
 }
