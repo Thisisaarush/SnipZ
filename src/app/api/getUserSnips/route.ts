@@ -22,7 +22,8 @@ export async function POST(req: Request, res: Response) {
 
     return Response.json({
       message: "User snips fetched successfully",
-      snips
+      snips,
+      user
     })
   } catch (error) {
     return Response.json({ message: "An error occurred while fetching user snips", error })

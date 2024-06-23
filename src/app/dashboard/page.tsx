@@ -5,6 +5,25 @@ import { useUser } from "@clerk/nextjs"
 import CodeBlock from "@/components/custom/code-block"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import SnipCards from "@/components/custom/snip-cards"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Copy, CopyCheck } from "lucide-react"
+import Link from "next/link"
 
 // function to identify the programming language by the file extension
 function identifyLanguageByExtension(fileName: string): string {
@@ -38,6 +57,24 @@ const DashboardPage = () => {
   const email = user?.primaryEmailAddress?.emailAddress || ""
 
   const [snips, setSnips] = useState([])
+  const [currentUser, setCurrentUser] = useState<{ [key: string]: any }>({})
+  const [currentFileLanguage, setCurrentFileLanguage] = useState("")
+  const [currentFileUrl, setCurrentFileUrl] = useState("")
+  const [isCopied, setIsCopied] = useState(false)
+
+  const handleCopyToClipboard = async () => {
+    try {
+      const response = await fetch(currentFileUrl)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const codeText = await response.text()
+      navigator?.clipboard?.writeText(codeText)
+      setIsCopied(true)
+    } catch (error) {
+      console.error("Error fetching the code:", error)
+    }
+  }
 
   useEffect(() => {
     const fetchSnips = async () => {
@@ -55,8 +92,8 @@ const DashboardPage = () => {
         }
 
         const data = await res.json()
-        console.log("Snips:", data.snips)
-        setSnips(data.snips)
+        setSnips(data.snips?.reverse())
+        setCurrentUser(data.user)
       } catch (error) {
         console.error("An error occurred while getting snips:", error)
       }
@@ -68,8 +105,84 @@ const DashboardPage = () => {
   }, [email, isLoaded, isSignedIn])
 
   return (
-    <div className="m-auto min-h-screen max-w-5xl py-4">
-      <h1>Dashboard</h1>
+    <div className="m-auto my-10 flex min-h-screen max-w-5xl flex-col gap-10 p-4">
+      <div className="m-auto flex max-w-4xl flex-col gap-10">
+        {snips?.map((snip: { [key: string]: any }) => {
+          return (
+            <Card key={snip.id}>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <p>by</p>
+
+                  <p>{currentUser?.name}</p>
+                </div>
+                <p className="overflow-hidden text-ellipsis text-sm text-gray-500">
+                  {snip.description}
+                </p>
+              </CardHeader>
+
+              <CardContent className="flex flex-col gap-2 overflow-hidden text-ellipsis bg-gray-100 py-4 dark:bg-gray-900">
+                {snip.snipUrls.map((url: string, index: number) => {
+                  return (
+                    <Dialog key={snip.id + url}>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant={"link"}
+                          size={"sm"}
+                          onClick={() => {
+                            setCurrentFileLanguage(identifyLanguageByExtension(url))
+                            setCurrentFileUrl(url)
+                          }}
+                          className="w-fit cursor-pointer text-sm text-blue-700 hover:underline dark:text-blue-600"
+                        >
+                          {url}
+                        </Button>
+                      </DialogTrigger>
+
+                      <DialogContent className="max-w-fit">
+                        <DialogHeader>
+                          <div className="flex items-center gap-2">
+                            <DialogTitle>{url}</DialogTitle>
+                            <Button
+                              variant={"outline"}
+                              size={"sm"}
+                              onClick={handleCopyToClipboard}
+                              className="flex w-fit gap-2"
+                            >
+                              {isCopied ? (
+                                <>
+                                  <CopyCheck size={"16px"} />
+                                  <p>Copied!</p>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy size={"16px"} />
+                                  <p>Copy</p>
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                          <DialogDescription>{identifyLanguageByExtension(url)}</DialogDescription>
+                        </DialogHeader>
+
+                        <ScrollArea className="max-h-[80vh]">
+                          <CodeBlock fileUrl={currentFileUrl} language={currentFileLanguage} />
+                          <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
+                      </DialogContent>
+                    </Dialog>
+                  )
+                })}
+              </CardContent>
+              <CardFooter className="mt-4">
+                <Button variant={"default"} asChild>
+                  <Link href={`/snips/${snip?.id}`}>Open</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          )
+        })}
+      </div>
     </div>
   )
 }
